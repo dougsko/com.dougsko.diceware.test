@@ -76,7 +76,6 @@ public class DicewareTest extends ActivityInstrumentationTestCase2<Diceware> {
 		
 		mPos = mSpinner.getSelectedItemPosition();
 		mSelection = (String) mSpinner.getItemAtPosition(mPos);
-		
 		assertEquals(mSelection, "Numbers");
 	}
 	
