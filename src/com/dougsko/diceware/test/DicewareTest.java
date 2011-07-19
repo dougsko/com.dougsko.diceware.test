@@ -20,9 +20,6 @@ public class DicewareTest extends ActivityInstrumentationTestCase2<Diceware> {
 	private int mPos;
 	private String mSelection;
 	private Button mButton1;
-	private Button mButton2;
-	private Button mButton3;
-	private Button mButton4;
 	private Button mButton5;
 	private Button mButton6;
 	private Button mRandomOrg;
@@ -44,9 +41,6 @@ public class DicewareTest extends ActivityInstrumentationTestCase2<Diceware> {
 		mSpinner = (Spinner) mActivity.findViewById(com.dougsko.diceware.R.id.spinner);
 		mModeData = mSpinner.getAdapter();
 		mButton1 = (Button) mActivity.findViewById(com.dougsko.diceware.R.id.one);
-		mButton2 = (Button) mActivity.findViewById(com.dougsko.diceware.R.id.two);
-		mButton3 = (Button) mActivity.findViewById(com.dougsko.diceware.R.id.three);
-		mButton4 = (Button) mActivity.findViewById(com.dougsko.diceware.R.id.four);
 		mButton5 = (Button) mActivity.findViewById(com.dougsko.diceware.R.id.five);
 		mButton6 = (Button) mActivity.findViewById(com.dougsko.diceware.R.id.six);
 		mRandomOrg = (Button) mActivity.findViewById(com.dougsko.diceware.R.id.randomOrg);
@@ -208,11 +202,32 @@ public class DicewareTest extends ActivityInstrumentationTestCase2<Diceware> {
 		mActivity.runOnUiThread(
 			new Runnable() {
 				public void run() {
+					mClipBoard = (ClipboardManager) mActivity.getSystemService(android.content.Context.CLIPBOARD_SERVICE); 
 					mCopyToClip.requestFocus();
 				}
 			}
 		);
 		this.sendKeys(KeyEvent.KEYCODE_DPAD_CENTER);
 		assertEquals(mClipBoard.getText().toString(), "a");
+	}
+	
+	public void testClearButton() {
+		mActivity.runOnUiThread(
+			new Runnable() {
+				public void run() {
+					mRandomOrg.requestFocus();
+				}
+			}
+		);
+		this.sendKeys(KeyEvent.KEYCODE_DPAD_CENTER);
+		mActivity.runOnUiThread(
+			new Runnable() {
+				public void run() {
+					mClear.requestFocus();
+				}
+			}
+		);
+		this.sendKeys(KeyEvent.KEYCODE_DPAD_CENTER);
+		assertEquals(mOutput.getText().toString(), "");
 	}
 }
